@@ -72,6 +72,7 @@ public interface RemoteCameraControl extends CapabilityMethods {
     void stopRemoteCamera(Context context, RemoteCameraStopListener stopListener);
     void setMicMute(Context context, boolean micMute);
     void setLensFacing(Context context, int lensFacing);
+    void changedPreviewOrientation(Context context, int degree);
     void setCameraPlayingListener(Context context, RemoteCameraPlayingListener playingListener);
     void setPropertyChangeListener(Context context, RemoteCameraPropertyChangeListener propertyChangeListener);
     void setErrorListener(Context context, RemoteCameraErrorListener errorListener);

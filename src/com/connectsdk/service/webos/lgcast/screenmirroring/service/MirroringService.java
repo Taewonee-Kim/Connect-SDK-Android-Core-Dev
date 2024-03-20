@@ -212,7 +212,7 @@ public class MirroringService extends Service {
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     private void start(Intent intent, ConnectionManagerListener connectionListener) {
-        Logger.print("stop");
+        Logger.print("start");
         initializeService();
         openTvConnection(intent, connectionListener);
     }

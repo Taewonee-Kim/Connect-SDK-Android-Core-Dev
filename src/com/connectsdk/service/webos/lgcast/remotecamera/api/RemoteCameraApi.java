@@ -112,6 +112,12 @@ public class RemoteCameraApi {
         else Logger.error("Remote camera is NOT running");
     }
 
+    public void changedPreviewOrientation(Context context, int degree) {
+        Logger.print("[taewon]changedPreviewOrientation (degree=%d)", degree);
+        if (RemoteCameraControl.isRunning(context) == true) CameraServiceIF.changedPreviewOrientation(context, degree);
+        else Logger.error("Remote camera is NOT running");
+    }
+
     public void setCameraPlayingListener(Context context, RemoteCameraPlayingListener playingListener) {
         mLocalBroadcastEx.registerOnce(context, CameraServiceIF.ACTION_NOTIFY_PLAYING, intent -> {
             if (playingListener != null) playingListener.onPlaying();

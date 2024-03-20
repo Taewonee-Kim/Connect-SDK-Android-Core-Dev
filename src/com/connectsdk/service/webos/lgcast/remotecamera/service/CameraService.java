@@ -89,6 +89,7 @@ public class CameraService extends Service {
             else if (CameraServiceIF.ACTION_STOP_BY_NOTIFICATION.equals(action) == true) executeStopByNotification();
             else if (CameraServiceIF.ACTION_SET_MIC_MUTE.equals(action) == true) executeSetMicMute(intent);
             else if (CameraServiceIF.ACTION_SET_LENS_FACING.equals(action) == true) executeSetLensFacing(intent);
+            else if (CameraServiceIF.ACTION_CHANGED_PREVIEW_ORIENTATION.equals(action) == true) executeChangedPreviewOrientation(intent);
         });
 
         return START_STICKY;
@@ -319,6 +320,19 @@ public class CameraService extends Service {
             JSONObjectEx jsonObj = new JSONObjectEx().put(CameraProperty.FACING, mCameraProperty.facing);
             mConnectionManager.updateSourceDeviceCapability(jsonObj.toJSONObject());
             CameraServiceIF.notifyPropertyChange(getBaseContext(), RemoteCameraProperty.LENS_FACING);
+        } catch (Exception e) {
+            Logger.error(e);
+            CameraServiceIF.notifyError(this, CameraServiceError.ERROR_GENERIC);
+            stop();
+        }
+    }
+
+    private void executeChangedPreviewOrientation(@NonNull Intent intent) {
+        Logger.print("executeChangedPreviewOrientation");
+
+        try {
+            if (mCameraCapture == null) throw new Exception("Invalid camera status");
+
         } catch (Exception e) {
             Logger.error(e);
             CameraServiceIF.notifyError(this, CameraServiceError.ERROR_GENERIC);

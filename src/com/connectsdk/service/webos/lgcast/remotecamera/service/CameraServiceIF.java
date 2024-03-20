@@ -24,6 +24,7 @@ public class CameraServiceIF {
 
     public static final String ACTION_SET_MIC_MUTE = "CameraServiceIF:ACTION_SET_MIC_MUTE";
     public static final String ACTION_SET_LENS_FACING = "CameraServiceIF:ACTION_SET_LENS_FACING";
+    public static final String ACTION_CHANGED_PREVIEW_ORIENTATION = "CameraServiceIF:ACTION_CHANGED_PREVIEW_ORIENTATION";
 
     public static final String ACTION_NOTIFY_PAIRING = "CameraServiceIF:ACTION_NOTIFY_PAIRING";
     public static final String ACTION_NOTIFY_PLAYING = "CameraServiceIF:ACTION_NOTIFY_PLAYING";
@@ -34,6 +35,7 @@ public class CameraServiceIF {
     public static final String EXTRA_DEVICE_IP_ADDRESS = "CameraServiceIF:EXTRA_DEVICE_IP_ADDRESS";
     public static final String EXTRA_MIC_MUTE = "CameraServiceIF:EXTRA_MIC_MUTE";
     public static final String EXTRA_LENS_FACING = "CameraServiceIF:EXTRA_LENS_FACING";
+    public static final String EXTRA_PREVIEW_ORIENTATION = "CameraServiceIF:EXTRA_PREVIEW_ORIENTATION";
 
     public static final String EXTRA_RESULT = "CameraServiceIF:EXTRA_RESULT";
     public static final String EXTRA_ERROR = "CameraServiceIF:EXTRA_ERROR";
@@ -92,6 +94,17 @@ public class CameraServiceIF {
         Intent intent = new Intent(context, CameraService.class);
         intent.setAction(ACTION_SET_LENS_FACING);
         intent.putExtra(EXTRA_LENS_FACING, lensFacing);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intent);
+        } else {
+            context.startService(intent);
+        }
+    }
+
+    public static void changedPreviewOrientation(Context context, int degree) {
+        Intent intent = new Intent(context, CameraService.class);
+        intent.setAction(ACTION_CHANGED_PREVIEW_ORIENTATION);
+        intent.putExtra(EXTRA_PREVIEW_ORIENTATION, degree);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intent);
         } else {

@@ -2655,6 +2655,11 @@ public class WebOSTVService extends WebOSTVDeviceService implements Launcher, Me
     }
 
     @Override
+    public void changedPreviewOrientation(Context context, int degree) {
+        RemoteCameraApi.getInstance().changedPreviewOrientation(context, degree);
+    }
+
+    @Override
     public void setCameraPlayingListener(Context context, RemoteCameraPlayingListener playingListener) {
         RemoteCameraApi.getInstance().setCameraPlayingListener(context, playingListener);
     }
