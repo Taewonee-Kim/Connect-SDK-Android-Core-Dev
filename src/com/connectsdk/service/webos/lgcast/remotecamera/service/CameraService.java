@@ -203,6 +203,7 @@ public class CameraService extends Service {
             public void onReceiveGetParameter(@NonNull JSONObject jsonObj) {
                 Logger.debug("onReceiveGetParameter");
                 mCameraProperty.rotation = AppUtil.getRotationDegree(getBaseContext());
+                mCameraProperty.orientation = mCurrCameraOrientation;
                 mConnectionManager.sendGetParameterResponse(mCameraProperty.toJSONObject());
             }
 
@@ -475,7 +476,6 @@ public class CameraService extends Service {
     }
 
     private class CameraOrientationListener extends OrientationEventListener {
-
         public CameraOrientationListener(Context context) {
             super(context, SensorManager.SENSOR_DELAY_NORMAL);
         }
@@ -497,8 +497,10 @@ public class CameraService extends Service {
 
             if (mCurrCameraOrientation != degree) {
                 mCurrCameraOrientation = degree;
-                //TO-DO
                 Logger.print("[taewon]mCurrCameraOrientation = " + mCurrCameraOrientation);
+                mCameraProperty.orientation = mCurrCameraOrientation;
+                JSONObjectEx jsonObj = new JSONObjectEx().put(CameraProperty.ORIENTATION, mCameraProperty.rotation);
+                mConnectionManager.updateSourceDeviceCapability(jsonObj.toJSONObject());
             }
         }
 
