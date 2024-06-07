@@ -497,9 +497,9 @@ public class CameraService extends Service {
 
             if (mCurrCameraOrientation != degree) {
                 mCurrCameraOrientation = degree;
-                Logger.print("[taewon]mCurrCameraOrientation = " + mCurrCameraOrientation);
                 mCameraProperty.orientation = mCurrCameraOrientation;
-                JSONObjectEx jsonObj = new JSONObjectEx().put(CameraProperty.ORIENTATION, mCameraProperty.rotation);
+                Logger.print("mCameraProperty.orientation = " + mCameraProperty.orientation);
+                JSONObjectEx jsonObj = new JSONObjectEx().put(CameraProperty.ORIENTATION, mCameraProperty.orientation);
                 mConnectionManager.updateSourceDeviceCapability(jsonObj.toJSONObject());
             }
         }
