@@ -500,7 +500,7 @@ public class CameraService extends Service {
                 mCameraProperty.orientation = mCurrCameraOrientation;
                 Logger.print("mCameraProperty.orientation = " + mCameraProperty.orientation);
 
-                if (mIsPlaying) {
+                if (mIsPlaying.get()) {
                     JSONObjectEx jsonObj = new JSONObjectEx().put(CameraProperty.ORIENTATION, mCameraProperty.orientation);
                     mConnectionManager.updateSourceDeviceCapability(jsonObj.toJSONObject());
                 }
